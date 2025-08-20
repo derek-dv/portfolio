@@ -1,5 +1,5 @@
 {
-  "name": "my-react-app",
+  "name": "derek-dv",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.540.0",
     "react": "^18.0.0",
