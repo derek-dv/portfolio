@@ -2,11 +2,15 @@
   "name": "derek-dv",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://derek-dv.github.io/portfolio",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
