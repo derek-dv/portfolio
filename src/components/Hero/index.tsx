@@ -59,7 +59,7 @@ const Hero: React.FC = () => {
               className="flex flex-wrap gap-4"
             >
               <a
-                href="https://linkedin.com/in/derek-david"
+                href="https://linkedin.com/in/derek-dv"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
