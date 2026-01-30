@@ -111,7 +111,7 @@ const Hero: React.FC = () => {
             <div className="relative w-80 h-80 md:w-96 md:h-96 mx-auto">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-2xl opacity-30 animate-pulse"></div>
               <img
-                src={process.env.PUBLIC_URL + "/images/me.webp"}
+                src="/images/me.webp"
                 alt="Derek David"
                 className="relative  w-full h-full object-cover rounded-full shadow-2xl"
               />
