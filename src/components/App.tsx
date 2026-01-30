@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import Navbar from "./Navbar";
 import Hero from "./Hero";
+import Services from "./Services";
 import About from "./About";
 import Experience from "./Experience";
 import Portfolio from "./Portfolio";
@@ -44,15 +45,25 @@ const App = () => {
     }
   }, [theme]);
 
+  // Force light mode for the new design as primarily requested, but keep logic
+  useEffect(() => {
+    // Optional: Force light mode initially if design requires it
+    // setTheme('light'); 
+  }, []);
+
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 transition-colors duration-300">
+      <div className="min-h-screen bg-white transition-colors duration-300">
         {/* Navigation with Liquid Glass Effect */}
         <Navbar theme={theme} setTheme={setTheme} />
 
         <main>
           {/* Hero Section */}
           <Hero />
+
+          {/* Services Section */}
+          <Services />
+
           {/* About Section */}
           <About />
 
@@ -65,6 +76,7 @@ const App = () => {
           {/* Contact Section */}
           <Contact />
         </main>
+
 
         {/* Footer */}
         <Footer />

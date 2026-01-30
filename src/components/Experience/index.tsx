@@ -1,77 +1,56 @@
 import { motion } from "framer-motion";
-import { experiences } from "../../exports";
-import { MapPin } from "lucide-react";
+import { Briefcase, Calendar } from "lucide-react";
+import { workHistory } from "../../exports";
 
 const Experience: React.FC = () => {
-  
+  // Take only the top entries if the list is long, to keep it "short & precise"
+  const recentWork = workHistory.slice(0, 3);
+
   return (
-    <section id="experience" className="py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="experience" className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-800 dark:text-white mb-4">
-            Work Experience
+          <h2 className="text-4xl font-bold text-slate-900 mb-4">
+            Experience
           </h2>
-          <p className="text-lg text-slate-600 dark:text-slate-300">
-            Professional journey and key achievements
+          <p className="text-lg text-slate-500">
+            My professional journey.
           </p>
         </motion.div>
 
-        <div className="space-y-8">
-          {experiences.map((exp, index) => (
+        <div className="relative border-l-2 border-slate-200 ml-4 md:ml-0 md:pl-0 md:grid md:grid-cols-1 md:gap-12 md:max-w-3xl md:mx-auto">
+          {recentWork.map((job, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
+              transition={{ delay: index * 0.1 }}
+              className="mb-10 md:mb-0 relative pl-8 md:pl-0"
             >
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                <div className="flex items-center space-x-3 mb-4 md:mb-0">
-                  <exp.icon
-                    className="text-blue-600 dark:text-blue-400"
-                    size={24}
-                  />
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-800 dark:text-white">
-                      {exp.title}
-                    </h3>
-                    <p className="text-blue-600 dark:text-blue-400 font-semibold">
-                      {exp.company}
-                    </p>
-                  </div>
-                </div>
-                <div className="text-center md:text-right">
-                  <p className="text-slate-600 dark:text-slate-300 font-medium">
-                    {exp.period}
-                  </p>
-                  <div className="flex items-center text-slate-500 dark:text-slate-400 text-sm mt-1">
-                    <MapPin size={16} className="mr-1" />
-                    {exp.location}
-                  </div>
-                </div>
-              </div>
+              {/* Timeline Dot */}
+              <div className="absolute -left-[9px] md:left-[-42px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-white shadow-sm z-10" />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {exp.achievements.map((achievement, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 + i * 0.1 }}
-                    className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg border border-slate-200 dark:border-slate-700"
-                  >
-                    <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">
-                      {achievement}
-                    </p>
-                  </motion.div>
-                ))}
+              {/* Content Card */}
+              <div className="bg-slate-50 p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                <div className="flex flex-col md:flex-row justify-between mb-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-800">{job.title}</h3>
+                    <p className="text-primary font-medium">{job.client || "Company Name"}</p>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-400 text-sm mt-2 md:mt-0">
+                    <Calendar size={16} />
+                    <span>{job.period}</span>
+                  </div>
+                </div>
+                <p className="text-slate-600 leading-relaxed text-sm">
+                  {job.feedback ? `"${job.feedback}"` : "Contributed to key projects and delivered high-quality software solutions."}
+                </p>
               </div>
             </motion.div>
           ))}

@@ -10,7 +10,7 @@ const Logo: React.FC<LogoProps> = ({ className = "w-8 h-8" }) => {
             viewBox="0 0 50 50"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className={`${className} text-blue-600 dark:text-blue-400 transition-colors duration-300`}
+            className={`${className} text-primary transition-colors duration-300`}
         >
             {/* Outer Hexagon */}
             <path
