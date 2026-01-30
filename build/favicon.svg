@@ -1,0 +1,20 @@
+<svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M25 5L42.3205 15V35L25 45L7.67949 35V15L25 5Z"
+    stroke="#2563eb"
+    stroke-width="3.5"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M25 20L33.6603 25L25 30L16.3397 25L25 20Z"
+    fill="#2563eb"
+    opacity="0.9"
+  />
+  <path
+    d="M25 5V20M42.3205 15L33.6603 25M42.3205 35L33.6603 25M25 45V30M7.67949 35L16.3397 25M7.67949 15L16.3397 25"
+    stroke="#2563eb"
+    stroke-width="2"
+    stroke-linecap="round"
+    opacity="0.5"
+  />
+</svg>
