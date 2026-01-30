@@ -19,10 +19,10 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-xl font-bold text-slate-800 mb-2">Mrstudio</h2>
+            <h2 className="text-xl font-bold text-slate-800 mb-2">Welcome</h2>
             <h1 className="text-5xl md:text-7xl font-bold text-slate-900 leading-tight">
-              Hy! I Am <br />
-              <span className="text-slate-800">Derek Dev</span>
+              Hi! I Am <br />
+              <span className="text-slate-800">Derek David</span>
             </h1>
           </motion.div>
 
@@ -76,7 +76,7 @@ const Hero = () => {
             </div>
             <div>
               <p className="font-bold text-slate-800 text-sm">Hackathon Winner</p>
-              <p className="text-xs text-slate-500">2024</p>
+              <p className="text-xs text-slate-500">2025</p>
             </div>
           </motion.div>
 
