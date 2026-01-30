@@ -1,15 +1,17 @@
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Grid, MessageCircle, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink, Github, Grid, MessageCircle, Star } from "lucide-react";
 import { useState } from "react";
 import { portfolioProjects, workHistory } from "../../exports";
+import Modal from "../Modal";
 
 const Portfolio: React.FC = () => {
   const [activeTab, setActiveTab] = useState("Published");
   const [workHistoryFilter, setWorkHistoryFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [portfolioPage, setPortfolioPage] = useState(1);
+  const [selectedProject, setSelectedProject] = useState<(typeof portfolioProjects)[0] | null>(null);
 
-   const paginate = (array: typeof portfolioProjects, page_size: number, page_number: number) => {
+  const paginate = (array: typeof portfolioProjects, page_size: number, page_number: number) => {
     return array.slice((page_number - 1) * page_size, page_number * page_size);
   };
 
@@ -18,16 +20,16 @@ const Portfolio: React.FC = () => {
   };
 
   const filteredWorkHistory =
-      workHistoryFilter === "all"
-        ? workHistory
-        : workHistory.filter((job) => job.status === workHistoryFilter);
+    workHistoryFilter === "all"
+      ? workHistory
+      : workHistory.filter((job) => job.status === workHistoryFilter);
 
   const paginatedPortfolio = paginate(portfolioProjects, 2, portfolioPage);
   const paginatedWorkHistory = paginateWork(filteredWorkHistory, 5, currentPage);
   const totalPages = Math.ceil(filteredWorkHistory.length / 5);
 
   const totalPortfolioPages = Math.ceil(portfolioProjects.length / 2);
-  
+
   return (
     <section id="portfolio" className="py-16 bg-slate-100 dark:bg-slate-800/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -44,7 +46,7 @@ const Portfolio: React.FC = () => {
             Featured projects and client testimonials
           </p>
         </motion.div>
-    
+
 
         {/* Portfolio Grid */}
         <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -55,7 +57,8 @@ const Portfolio: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white dark:bg-slate-700 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              onClick={() => setSelectedProject(project)}
+              className="bg-white dark:bg-slate-700 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group"
             >
               <img
                 src={project.image}
@@ -122,11 +125,10 @@ const Portfolio: React.FC = () => {
               <button
                 key={i}
                 onClick={() => setPortfolioPage(i + 1)}
-                className={`w-8 h-8 rounded-lg transition-colors duration-200 ${
-                  portfolioPage === i + 1
+                className={`w-8 h-8 rounded-lg transition-colors duration-200 ${portfolioPage === i + 1
                     ? "bg-blue-600 text-white"
                     : "bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600"
-                }`}
+                  }`}
               >
                 {i + 1}
               </button>
@@ -239,11 +241,10 @@ const Portfolio: React.FC = () => {
                 <button
                   key={i}
                   onClick={() => setCurrentPage(i + 1)}
-                  className={`w-8 h-8 rounded-lg transition-colors duration-200 ${
-                    currentPage === i + 1
+                  className={`w-8 h-8 rounded-lg transition-colors duration-200 ${currentPage === i + 1
                       ? "bg-blue-600 text-white"
                       : "bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600"
-                  }`}
+                    }`}
                 >
                   {i + 1}
                 </button>
@@ -261,7 +262,72 @@ const Portfolio: React.FC = () => {
           </div>
         </div>
       </div>
-    </section>
+      <Modal
+        isOpen={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+        title={selectedProject?.title || ""}
+      >
+        {selectedProject && (
+          <div className="space-y-6">
+            <img
+              src={selectedProject.image}
+              alt={selectedProject.title}
+              className="w-full h-64 object-cover rounded-lg"
+            />
+
+            <div>
+              <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">
+                About the Project
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                {selectedProject.description}
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">
+                Technologies Used
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {selectedProject.tech.map((tech, i) => (
+                  <span
+                    key={i}
+                    className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-sm rounded-full"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+              {selectedProject.link && (
+                <a
+                  href={selectedProject.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+                >
+                  <ExternalLink size={20} />
+                  <span>View Live</span>
+                </a>
+              )}
+              {selectedProject.github && (
+                <a
+                  href={selectedProject.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-6 py-2 rounded-lg font-medium transition-colors"
+                >
+                  <Github size={20} />
+                  <span>View Code</span>
+                </a>
+              )}
+            </div>
+          </div>
+        )}
+      </Modal>
+    </section >
   );
 };
 

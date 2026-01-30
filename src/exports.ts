@@ -1,16 +1,11 @@
 import { Briefcase } from "lucide-react";
 
 export const skills = [
-  { name: "Python", level: 95 },
-  { name: "Django", level: 90 },
-  { name: "JavaScript", level: 92 },
   { name: "React", level: 94 },
   { name: "Node.js", level: 88 },
-  { name: "MongoDB", level: 85 },
-  { name: "PostgreSQL", level: 87 },
-  { name: "AWS", level: 83 },
-  { name: "Docker", level: 80 },
-  { name: "TensorFlow", level: 60 },
+  { name: "Next.js", level: 90 },
+  { name: "SQL", level: 87 },
+  { name: "NoSQL", level: 85 },
 ];
 
 export const experiences = [
@@ -21,12 +16,12 @@ export const experiences = [
     location: "Remote",
     icon: Briefcase,
     achievements: [
-      "Built high-performance full-stack applications using React, Redux, and Next.js, resulting in 95% client satisfaction rate across 30+ projects",
-      "Engineered a scalable image generation API with FastAPI and Django that processed 10,000+ daily requests using AWS infrastructure and Docker containerization",
-      "Created optimized RESTful APIs and GraphQL endpoints that reduced data exchange latency by 40%",
-      "Structured efficient database schemas with Django ORM and PostgreSQL, improving query performance by 35% while maintaining data integrity",
-      "Automated testing and deployment through CI/CD pipelines with GitHub Actions and Jenkins, reducing deployment time by 60%",
-      "Delivered multiple machine learning solutions including object detection systems, NLP applications with BERT models, and OpenAI integrations that increased client operational efficiency by 25%",
+      "Built high-performance full-stack apps (React, Next.js), achieving 95% client satisfaction.",
+      "Engineered scalable AI image generation API handling 10k+ daily requests via AWS & Docker.",
+      "Optimized REST/GraphQL APIs, reducing latency by 40%.",
+      "Improved DB performance by 35% using efficient Django ORM & PostgreSQL schemas.",
+      "Automated CI/CD producing 60% faster deployments.",
+      "Delivered ML solutions (NLP, Object Detection) increasing operational efficiency by 25%.",
     ],
   },
   {
@@ -36,10 +31,10 @@ export const experiences = [
     location: "Göteborg, Sweden",
     icon: Briefcase,
     achievements: [
-      "Architected web applications using Vue.js, React, and Django that boosted user engagement by 30% and reduced page load times by 45%",
-      "Streamlined data flow between frontend and backend by refactoring API endpoints, resulting in 28% faster application performance",
-      "Enhanced user experience through intuitive UI/UX redesigns that increased user retention rates by 22%",
-      "Reduced software defects by 40% through implementing comprehensive testing strategies with Jest and Selenium",
+      "Architected Vue/React/Django apps, boosting engagement by 30% and speed by 45%.",
+      "Refactored API endpoints, improving app performance by 28%.",
+      "Redesigned UI/UX, increasing retention by 22%.",
+      "Reduced defects by 40% via comprehensive Jest/Selenium testing.",
     ],
   },
   {
@@ -49,10 +44,10 @@ export const experiences = [
     location: "Yola, Nigeria",
     icon: Briefcase,
     achievements: [
-      "Engineered scalable web applications using MERN stack (MongoDB, Express.js, React.js, Node.js) that automated 5 critical business processes, reducing manual workload by 35%",
-      "Constructed RESTful APIs following best practices that improved data integrity by 25% and reduced API response times by 30%",
-      "Implemented hybrid SQL/NoSQL database architecture that accommodated diverse data types while improving query performance by 40%",
-      "Deployed microservices using Docker containers that reduced application deployment time by 50% and improved system reliability with 99.9% uptime",
+      "Engineered MERN stack apps automating critical processes, cutting manual work by 35%.",
+      "Built RESTful APIs improving data integrity by 25% and response times by 30%.",
+      "Implemented hybrid SQL/NoSQL structure, boosting query speed by 40%.",
+      "Deployed microservices (Docker) halving deployment time and ensuring 99.9% uptime.",
     ],
   },
   {
@@ -62,10 +57,10 @@ export const experiences = [
     location: "Toronto, ON, Canada",
     icon: Briefcase,
     achievements: [
-      "Developed backend systems for two mobile applications that acquired 15,000+ users within three months of launch",
-      "Built a feature-rich golf game management application that increased user engagement by 45% through intuitive score tracking and player statistics",
-      "Designed normalized PostgreSQL database schemas with Sequelize that improved data retrieval speeds by 35% while ensuring application scalability",
-      "Integrated third-party APIs that expanded application functionality while reducing development time by 20%",
+      "Developed backend for mobile apps acquiring 15k+ users in 3 months.",
+      "Built golf game management app increasing engagement by 45%.",
+      "Designed normalized PostgreSQL schemas improving retrieval speeds by 35%.",
+      "Integrated 3rd-party APIs, cutting development time by 20%.",
     ],
   },
   {
@@ -75,50 +70,34 @@ export const experiences = [
     location: "London, UK",
     icon: Briefcase,
     achievements: [
-      "Delivered mobile applications using React that incorporated Facebook's design principles, improving user experience metrics by 40%",
-      "Optimized REST API integration that decreased frontend loading times by 50% and enhanced overall application responsiveness",
-      "Created comprehensive technical documentation that reduced onboarding time for new developers by 60%",
-      "Successfully integrated existing company APIs with new applications, ensuring seamless data flow and system compatibility",
+      "Delivered React mobile apps improving UX metrics by 40%.",
+      "Optimized REST APIs, halving frontend load times.",
+      "Created technical docs reducing onboarding time by 60%.",
+      "Seamlessly integrated existing APIs with new apps.",
     ],
   },
 ];
 
 export const portfolioProjects = [
   {
-    title: "AI-Powered Image Generation API",
-    description:
-      "Scalable API using FastAPI and Django with AWS infrastructure handling 10,000+ daily requests",
-    tech: ["Python", "FastAPI", "Django", "AWS", "Docker"],
+    title: "Resume Pro",
+    description: "A resume optimization web app.",
+    tech: ["React", "Node.js", "AI"],
     rating: 5,
-    client: "Enterprise Client",
-    image: "https://placehold.co/400x300/6366f1/ffffff?text=AI+Image+API",
+    client: "Personal Project",
+    image: "https://placehold.co/400x300/2563eb/ffffff?text=Resume+Pro",
+    link: "#",
+    github: "#",
   },
   {
-    title: "A SYSTEM FOR PREDICTING STOCK PRICES USING DEEP LEARNING",
-    description:
-      "Advanced deep learning model for stock price prediction with real-time data processing and visualization",
-    tech: ["Python", "TensorFlow", "PyTorch", "Flask", "React"],
+    title: "Inuwa Bukar Portfolio",
+    description: "A portfolio website.",
+    tech: ["React", "Next.js", "Tailwind CSS"],
     rating: 5,
-    client: "Financial Technology Company",
-    image: "https://placehold.co/400x300/8b5cf6/ffffff?text=Stock+Prediction",
-  },
-  {
-    title: "E-Commerce Platform",
-    description:
-      "Full-stack MERN application with payment integration and admin dashboard",
-    tech: ["React", "Node.js", "MongoDB", "Express", "Redux"],
-    rating: 5,
-    client: "Retail Startup",
-    image: "https://placehold.co/400x300/06b6d4/ffffff?text=E-Commerce",
-  },
-  {
-    title: "Online Text Editor",
-    description:
-      "Feature-rich online text editor with collaboration tools and real-time saving",
-    tech: ["Vue.js", "Node.js", "PostgreSQL", "Socket.io"],
-    rating: 4.8,
-    client: "Education Platform",
-    image: "https://placehold.co/400x300/10b981/ffffff?text=Text+Editor",
+    client: "Inuwa Bukar",
+    image: "https://placehold.co/400x300/16a34a/ffffff?text=Portfolio",
+    link: "https://inuwa-bukar.vercel.app/",
+    github: "#",
   },
 ];
 

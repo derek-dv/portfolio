@@ -68,7 +68,7 @@ const Hero: React.FC = () => {
                 <span>LinkedIn</span>
               </a>
               <a
-                href="mailto:derekmiracledavid@gmail.com"
+                href="mailto:derek@derekcodes.online"
                 className="flex items-center space-x-2 border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 dark:text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
               >
                 <Mail size={20} />
@@ -111,7 +111,7 @@ const Hero: React.FC = () => {
             <div className="relative w-80 h-80 md:w-96 md:h-96 mx-auto">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-2xl opacity-30 animate-pulse"></div>
               <img
-                src="/images/me.webp"
+                src={process.env.PUBLIC_URL + "/images/me.webp"}
                 alt="Derek David"
                 className="relative  w-full h-full object-cover rounded-full shadow-2xl"
               />

@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import Navbar from "./Navbar";
 import Hero from "./Hero";
@@ -9,43 +9,46 @@ import Contact from "./Contact";
 import Footer from "./Footer";
 
 const App = () => {
-  const getInitialDarkMode = () => {
-  const stored = localStorage.getItem("theme");
-  if (stored) return stored === "dark";
-  return window.matchMedia("(prefers-color-scheme: dark)").matches;
-};
+  const getInitialTheme = (): "light" | "dark" | "system" => {
+    const stored = localStorage.getItem("theme");
+    if (stored === "dark" || stored === "light") return stored;
+    return "system";
+  };
 
-  const [darkMode, setDarkMode] = useState(getInitialDarkMode);
+  const [theme, setTheme] = useState<"light" | "dark" | "system">(getInitialTheme);
+  const [darkMode, setDarkMode] = useState(false); // Applied state
 
+  // Effect to apply theme
   useEffect(() => {
     const root = window.document.documentElement;
-    if (darkMode) {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+    const applyTheme = (isDark: boolean) => {
+      setDarkMode(isDark);
+      if (isDark) {
+        root.classList.add("dark");
+      } else {
+        root.classList.remove("dark");
+      }
+    };
+
+    if (theme === "system") {
+      const mq = window.matchMedia("(prefers-color-scheme: dark)");
+      applyTheme(mq.matches);
+
+      const handler = (e: MediaQueryListEvent) => applyTheme(e.matches);
+      mq.addEventListener("change", handler);
+      localStorage.removeItem("theme");
+      return () => mq.removeEventListener("change", handler);
     } else {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+      applyTheme(theme === "dark");
+      localStorage.setItem("theme", theme);
     }
-  }, [darkMode]);
-
-  // Listen to system changes only if user hasn't chosen
-  useEffect(() => {
-    const stored = localStorage.getItem("theme");
-    if (stored) return;
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const handler = (e: MediaQueryListEvent) => setDarkMode(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-
-  const toggleDarkMode = () => setDarkMode((prev) => !prev);
-
+  }, [theme]);
 
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 transition-colors duration-300">
         {/* Navigation with Liquid Glass Effect */}
-        <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+        <Navbar theme={theme} setTheme={setTheme} />
 
         <main>
           {/* Hero Section */}

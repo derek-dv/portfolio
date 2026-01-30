@@ -1,16 +1,24 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { Menu, Monitor, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import Logo from "../Logo";
 
 interface NavbarProps {
-  toggleDarkMode: () => void;
-  darkMode: boolean;
+  theme: "light" | "dark" | "system";
+  setTheme: (theme: "light" | "dark" | "system") => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
+const Navbar: React.FC<NavbarProps> = ({ theme, setTheme }) => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isThemeDropdownOpen, setIsThemeDropdownOpen] = useState(false);
+
+  const getThemeIcon = () => {
+    if (theme === "light") return <Sun size={20} />;
+    if (theme === "dark") return <Moon size={20} />;
+    return <Monitor size={20} />;
+  };
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
@@ -36,11 +44,10 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "backdrop-blur-[32px] bg-white/25 dark:bg-slate-900/25 border border-white/30 dark:border-slate-700/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.18)] saturate-150 data-[glass=true]:after:absolute data-[glass=true]:after:inset-0 data-[glass=true]:after:bg-gradient-to-b data-[glass=true]:after:from-transparent data-[glass=true]:after:via-white/10 data-[glass=true]:after:to-transparent dark:data-[glass=true]:after:via-slate-900/10 after:pointer-events-none"
-          : "bg-transparent border-0"
-      }`}
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled
+        ? "backdrop-blur-[32px] bg-white/25 dark:bg-slate-900/25 border border-white/30 dark:border-slate-700/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.18)] saturate-150 data-[glass=true]:after:absolute data-[glass=true]:after:inset-0 data-[glass=true]:after:bg-gradient-to-b data-[glass=true]:after:from-transparent data-[glass=true]:after:via-white/10 data-[glass=true]:after:to-transparent dark:data-[glass=true]:after:via-slate-900/10 after:pointer-events-none"
+        : "bg-transparent border-0"
+        }`}
       data-glass={scrolled} // Triggers the effect only when scrolled
       style={{
         // Subtle inner glow for "liquid" feel
@@ -53,33 +60,9 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-2xl font-bold text-slate-800 dark:text-white"
+            className="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2"
           >
-            <svg
-              width="30"
-              height="30"
-              viewBox="0 0 40 40"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-blue-600 dark:text-blue-400"
-            >
-              {/* Outer Circle - Optional subtle container */}
-              <circle
-                cx="20"
-                cy="20"
-                r="18"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="fill-transparent"
-              />
-
-              {/* Minimalist "DD" in geometric style */}
-              <path
-                d="M14 12v16c0 2.2-1.8 4-4 4H8V12h2c2.2 0 4 1.8 4 4zm4-4h2v24h-2V12z"
-                fill="currentColor"
-                opacity="0.9"
-              />
-            </svg>
+            <Logo className="w-8 h-8" />
           </motion.div>
 
           <div className="hidden md:flex space-x-8">
@@ -88,11 +71,10 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
-                  className={`capitalize text-sm font-medium transition-all duration-200 relative group ${
-                    activeSection === item
-                      ? "text-blue-600 dark:text-blue-400"
-                      : "text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  }`}
+                  className={`capitalize text-sm font-medium transition-all duration-200 relative group ${activeSection === item
+                    ? "text-blue-600 dark:text-blue-400"
+                    : "text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
+                    }`}
                 >
                   {item}
                   <motion.div
@@ -107,12 +89,48 @@ const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleDarkMode }) => {
           </div>
 
           <div className="flex items-center space-x-4">
-            {/* <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-full bg-white/20 dark:bg-slate-800/20 backdrop-blur-sm text-slate-800 dark:text-slate-200 hover:bg-white/30 dark:hover:bg-slate-800/30 transition-colors duration-200"
-            >
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button> */}
+            <div className="relative">
+              <button
+                onClick={() => setIsThemeDropdownOpen(!isThemeDropdownOpen)}
+                className="p-2 rounded-full bg-white/20 dark:bg-slate-800/20 backdrop-blur-sm text-slate-800 dark:text-slate-200 hover:bg-white/30 dark:hover:bg-slate-800/30 transition-colors duration-200"
+                title="Change Theme"
+              >
+                {getThemeIcon()}
+              </button>
+
+              <AnimatePresence>
+                {isThemeDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute right-0 mt-2 w-36 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden"
+                  >
+                    {[
+                      { name: "light", icon: Sun, label: "Light" },
+                      { name: "dark", icon: Moon, label: "Dark" },
+                      { name: "system", icon: Monitor, label: "System" },
+                    ].map((mode) => (
+                      <button
+                        key={mode.name}
+                        onClick={() => {
+                          setTheme(mode.name as "light" | "dark" | "system");
+                          setIsThemeDropdownOpen(false);
+                        }}
+                        className={`w-full flex items-center space-x-3 px-4 py-3 text-sm transition-colors ${theme === mode.name
+                          ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+                          : "text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
+                          }`}
+                      >
+                        <mode.icon size={16} />
+                        <span>{mode.label}</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}

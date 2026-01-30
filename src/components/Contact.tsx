@@ -40,7 +40,7 @@ const Contact = () => {
                       Email
                     </p>
                     <p className="text-slate-600 dark:text-slate-300">
-                      derekmiracledavid@gmail.com
+                      derek@derekcodes.online
                     </p>
                   </div>
                 </div>
@@ -107,6 +107,41 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="bg-white dark:bg-slate-700 rounded-xl p-8 shadow-lg"
+            onSubmit={async (e) => {
+              e.preventDefault();
+              const form = e.target as HTMLFormElement;
+              const formData = new FormData(form);
+              const data = Object.fromEntries(formData.entries());
+
+              const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+              const originalText = submitBtn.innerHTML;
+              submitBtn.disabled = true;
+              submitBtn.innerHTML = '<span>Sending...</span>';
+              console.log(data);
+
+              try {
+                const response = await fetch('http://localhost:3001/api/contact', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                  alert('Message sent successfully!');
+                  form.reset();
+                } else {
+                  alert('Failed to send message. Please try again.');
+                }
+              } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Make sure the backend server is running.');
+              } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+              }
+            }}
           >
             <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-6">
               Send a Message
@@ -117,7 +152,9 @@ const Contact = () => {
                   Name
                 </label>
                 <input
+                  name="name"
                   type="text"
+                  required
                   className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-800 dark:text-white"
                   placeholder="Your name"
                 />
@@ -127,7 +164,9 @@ const Contact = () => {
                   Email
                 </label>
                 <input
+                  name="email"
                   type="email"
+                  required
                   className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-800 dark:text-white"
                   placeholder="your.email@example.com"
                 />
@@ -137,7 +176,9 @@ const Contact = () => {
                   Subject
                 </label>
                 <input
+                  name="subject"
                   type="text"
+                  required
                   className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-800 dark:text-white"
                   placeholder="Project inquiry"
                 />
@@ -147,6 +188,8 @@ const Contact = () => {
                   Message
                 </label>
                 <textarea
+                  name="message"
+                  required
                   rows={3}
                   className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-800 dark:text-white"
                   placeholder="Tell me about your project..."
@@ -154,7 +197,7 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 <SendIcon />
                 <span>Send Message</span>
