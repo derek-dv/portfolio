@@ -1,6 +1,29 @@
 import { Canvas } from "@react-three/fiber";
 import { Float, Icosahedron, Torus, Sphere, TorusKnot, MeshDistortMaterial, Environment, ContactShadows } from "@react-three/drei";
-import { Suspense } from "react";
+import { Suspense, Component, ReactNode } from "react";
+
+class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+    constructor(props: { children: ReactNode }) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError() {
+        return { hasError: true };
+    }
+
+    componentDidCatch(error: any, errorInfo: any) {
+        console.error("Three.js Error:", error, errorInfo);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return null;
+        }
+
+        return this.props.children;
+    }
+}
 
 const FloatingShapes = () => {
     return (
@@ -67,11 +90,13 @@ const FloatingShapes = () => {
 const ThreeBackground = () => {
     return (
         <div className="absolute inset-0 z-0 pointer-events-none opacity-60">
-            <Canvas camera={{ position: [0, 0, 5] }}>
-                <Suspense fallback={null}>
-                    <FloatingShapes />
-                </Suspense>
-            </Canvas>
+            <ErrorBoundary>
+                <Canvas camera={{ position: [0, 0, 5] }}>
+                    <Suspense fallback={null}>
+                        <FloatingShapes />
+                    </Suspense>
+                </Canvas>
+            </ErrorBoundary>
         </div>
     );
 };
