@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { Briefcase, Calendar } from "lucide-react";
-import { workHistory } from "../../exports";
+import { experiences } from "../../exports";
 
 const Experience: React.FC = () => {
-  // Take only the top entries if the list is long, to keep it "short & precise"
-  const recentWork = workHistory.slice(0, 3);
+  // Use all experiences
+  const recentWork = experiences;
 
   return (
     <section id="experience" className="py-20 bg-white">
@@ -41,16 +41,20 @@ const Experience: React.FC = () => {
                 <div className="flex flex-col md:flex-row justify-between mb-4">
                   <div>
                     <h3 className="text-xl font-bold text-slate-800">{job.title}</h3>
-                    <p className="text-primary font-medium">{job.client || "Company Name"}</p>
+                    <p className="text-primary font-medium">{job.company}</p>
                   </div>
                   <div className="flex items-center gap-2 text-slate-400 text-sm mt-2 md:mt-0">
                     <Calendar size={16} />
                     <span>{job.period}</span>
                   </div>
                 </div>
-                <p className="text-slate-600 leading-relaxed text-sm">
-                  {job.feedback ? `"${job.feedback}"` : "Contributed to key projects and delivered high-quality software solutions."}
-                </p>
+                <ul className="list-disc list-inside text-slate-600 text-sm space-y-2 mt-4">
+                  {job.achievements.map((achievement, i) => (
+                    <li key={i} className="leading-relaxed">
+                      {achievement}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
           ))}

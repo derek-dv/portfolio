@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Award, ShoppingBag, Palette } from "lucide-react";
+import { ArrowRight, Trophy, ShoppingBag, Code } from "lucide-react";
+import ThreeBackground from "../ThreeBackground";
 
 const Hero = () => {
   return (
     <section id="hero" className="relative min-h-screen pt-20 flex items-center overflow-hidden">
+      <ThreeBackground />
       {/* Background Blobs */}
       <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-30 animate-pulse" />
       <div className="absolute bottom-[10%] right-[-5%] w-72 h-72 bg-orange-100 rounded-full blur-3xl opacity-40 animate-pulse" />
@@ -70,11 +72,11 @@ const Hero = () => {
             className="absolute top-10 right-0 md:right-10 glass p-3 rounded-2xl flex items-center gap-3 z-20"
           >
             <div className="bg-orange-100 p-2 rounded-full">
-              <Award className="text-primary w-6 h-6" />
+              <Trophy className="text-primary w-6 h-6" />
             </div>
             <div>
-              <p className="font-bold text-slate-800 text-sm">Best Design</p>
-              <p className="text-xs text-slate-500">Awards</p>
+              <p className="font-bold text-slate-800 text-sm">Hackathon Winner</p>
+              <p className="text-xs text-slate-500">2024</p>
             </div>
           </motion.div>
 
@@ -85,11 +87,11 @@ const Hero = () => {
             className="absolute bottom-10 left-0 glass p-3 rounded-2xl flex items-center gap-3 z-20"
           >
             <div className="bg-purple-100 p-2 rounded-full">
-              <Palette className="text-purple-600 w-6 h-6" />
+              <Code className="text-purple-600 w-6 h-6" />
             </div>
             <div>
-              <p className="font-bold text-slate-800 text-sm">UI/Ux</p>
-              <p className="text-xs text-slate-500">Lorem ipsum dummy</p>
+              <p className="font-bold text-slate-800 text-sm">Full Stack</p>
+              <p className="text-xs text-slate-500">Web & Mobile</p>
             </div>
           </motion.div>
 

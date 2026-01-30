@@ -16,7 +16,7 @@ const Portfolio: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-end mb-12">
           <div>
             <h2 className="text-4xl font-bold text-slate-900 mb-2">Recent Project</h2>
-            <p className="text-slate-500">Lorem ipsum dummy text are usually use print and website industry.</p>
+            <p className="text-slate-500">Check out some of my recent work.</p>
           </div>
           <div className="mt-6 md:mt-0">
             <button className="bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/30">
