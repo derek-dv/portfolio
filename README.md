@@ -1,4 +1,4 @@
-# My React App
+# Portfolio
 
 This is a simple React application built with TypeScript. It serves as a template for creating scalable and maintainable React applications.
 
@@ -24,7 +24,7 @@ Make sure you have the following installed:
 2. Navigate to the project directory:
 
    ```
-   cd my-react-app
+   cd portfolio
    ```
 
 3. Install the dependencies:

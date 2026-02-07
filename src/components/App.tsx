@@ -9,6 +9,8 @@ import Portfolio from "./Portfolio";
 import Contact from "./Contact";
 import Footer from "./Footer";
 
+import { Toaster } from 'react-hot-toast';
+
 const App = () => {
   const getInitialTheme = (): "light" | "dark" | "system" => {
     const stored = localStorage.getItem("theme");
@@ -54,6 +56,7 @@ const App = () => {
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
       <div className="min-h-screen bg-white transition-colors duration-300">
+        <Toaster position="top-center" />
         {/* Navigation with Liquid Glass Effect */}
         <Navbar theme={theme} setTheme={setTheme} />
 

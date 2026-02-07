@@ -1,24 +1,42 @@
 import { motion } from "framer-motion";
-import { Mail, Phone, Send } from "lucide-react";
+import { Mail, Phone, Send, Download } from "lucide-react";
 import { useRef, useState, FormEvent } from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const Contact: React.FC = () => {
   const form = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  // Mock submit for now
-  const sendEmail = (e: FormEvent) => {
+  const sendEmail = async (e: FormEvent) => {
     e.preventDefault();
+    if (!form.current) return;
+
     setLoading(true);
-    setTimeout(() => {
+    const formData = new FormData(form.current);
+    const data = {
+      name: formData.get("user_name"),
+      email: formData.get("user_email"),
+      subject: "Portfolio Contact", // Default subject or add field
+      message: formData.get("message"),
+    };
+
+    try {
+      await axios.post('http://localhost:3001/api/contact', data);
       setLoading(false);
       setSubmitted(true);
-    }, 1500);
+      toast.success("Message sent successfully!");
+      if (form.current) form.current.reset();
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      toast.error("Failed to send message. Please try again.");
+    }
   };
 
   return (
-    <section id="contact" className="py-20 bg-slate-50">
+    <section id="contact" className="py-20 bg-slate-50 relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
@@ -52,6 +70,13 @@ const Contact: React.FC = () => {
                   <p className="text-slate-500 text-sm">+234 708 602 0081</p>
                 </div>
               </div>
+            </div>
+
+            <div className="pt-4">
+              <a href="/resume.pdf" download className="flex items-center justify-center w-full sm:w-auto gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/20">
+                <Download size={18} />
+                <span>Download Resume</span>
+              </a>
             </div>
           </div>
 
