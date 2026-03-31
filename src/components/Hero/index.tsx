@@ -1,14 +1,13 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Trophy, ShoppingBag, Code } from "lucide-react";
-import ThreeBackground from "../ThreeBackground";
 
 const Hero = () => {
   return (
     <section id="hero" className="relative min-h-screen pt-20 flex items-center overflow-hidden">
-      <ThreeBackground />
       {/* Background Blobs */}
-      <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-30 animate-pulse" />
-      <div className="absolute bottom-[10%] right-[-5%] w-72 h-72 bg-orange-100 rounded-full blur-3xl opacity-40 animate-pulse" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.18),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(15,23,42,0.08),_transparent_28%),linear-gradient(180deg,_rgba(255,255,255,0.95),_rgba(248,250,252,0.98))]" />
+      <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-orange-200 rounded-full blur-3xl opacity-40 animate-pulse" />
+      <div className="absolute bottom-[10%] right-[-5%] w-72 h-72 bg-slate-200 rounded-full blur-3xl opacity-50 animate-pulse" />
 
       <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
 
