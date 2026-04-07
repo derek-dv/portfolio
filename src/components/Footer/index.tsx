@@ -1,44 +1,47 @@
-import { Github, Linkedin, Mail } from "lucide-react"
+import { Github, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-slate-200 py-10">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-center md:text-left">
-            <h3 className="font-bold text-xl text-slate-800 mb-2">Derek David</h3>
-            <p className="text-slate-500 text-sm">
-              &copy; {new Date().getFullYear()} All rights reserved.
-            </p>
-          </div>
-          <div className="flex space-x-6">
-            <a
-              href="https://linkedin.com/in/derek-dv"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-slate-100 rounded-full text-slate-500 hover:text-primary hover:bg-orange-50 transition-all duration-300"
-            >
-              <Linkedin size={20} />
-            </a>
-            <a
-              href="https://github.com/derek-dv"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-slate-100 rounded-full text-slate-500 hover:text-primary hover:bg-orange-50 transition-all duration-300"
-            >
-              <Github size={20} />
-            </a>
-            <a
-              href="mailto:derek@derekcodes.online"
-              className="p-2 bg-slate-100 rounded-full text-slate-500 hover:text-primary hover:bg-orange-50 transition-all duration-300"
-            >
-              <Mail size={20} />
-            </a>
-          </div>
+    <footer className="section-shell pb-10">
+      <div className="flex flex-col gap-6 border-t border-[var(--line)] pt-8 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p className="kicker">Derek David</p>
+          <p className="mt-3 max-w-md text-sm leading-7 text-[var(--ink-soft)]">
+            Product-focused full-stack engineering with a bias for clarity,
+            maintainability, and shipping work that holds up.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <a
+            href="https://linkedin.com/in/derek-dv"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-[var(--line-strong)] p-3 text-[var(--ink)] hover:border-[var(--accent)]"
+            aria-label="LinkedIn"
+          >
+            <Linkedin size={18} />
+          </a>
+          <a
+            href="https://github.com/derek-dv"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-[var(--line-strong)] p-3 text-[var(--ink)] hover:border-[var(--accent)]"
+            aria-label="GitHub"
+          >
+            <Github size={18} />
+          </a>
+          <a
+            href="mailto:derek@derekcodes.online"
+            className="rounded-full border border-[var(--line-strong)] p-3 text-[var(--ink)] hover:border-[var(--accent)]"
+            aria-label="Email"
+          >
+            <Mail size={18} />
+          </a>
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
 export default Footer;

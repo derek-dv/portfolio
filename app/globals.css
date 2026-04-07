@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans:
+    "General Sans", "Satoshi", "Avenir Next", "Segoe UI Variable Display",
+    "Segoe UI", sans-serif;
+  --font-display:
+    "Clash Display", "General Sans", "Avenir Next Condensed",
+    "Segoe UI Variable Display", sans-serif;
+  --bg: #050505;
+  --panel: rgba(14, 14, 14, 0.9);
+  --panel-soft: rgba(255, 255, 255, 0.04);
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --text: #f4f4f4;
+  --muted: rgba(255, 255, 255, 0.6);
+  --muted-2: rgba(255, 255, 255, 0.42);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(255, 255, 255, 0.08), transparent 20%),
+    radial-gradient(circle at 85% 12%, rgba(255, 255, 255, 0.06), transparent 18%),
+    linear-gradient(180deg, #1a1a1a 0%, #111111 12%, #070707 42%, #050505 100%);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+body::selection {
+  background: rgba(255, 255, 255, 0.9);
+  color: #050505;
+}
+
+@layer base {
+  * {
+    @apply border-transparent;
+  }
+
+  a,
+  button,
+  summary {
+    @apply transition-all duration-200;
+  }
+}
+
+@layer components {
+  .section-shell {
+    @apply mx-auto w-full max-w-[1440px] px-4 md:px-6;
+  }
+
+  .surface-panel {
+    @apply relative border border-white/10 bg-[rgba(7,7,7,0.86)] shadow-[0_28px_90px_rgba(0,0,0,0.42)] backdrop-blur-xl;
+  }
+
+  .grid-panel {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+
+  .seo-label {
+    @apply text-[11px] uppercase tracking-[0.3em];
+    color: rgba(255, 255, 255, 0.42);
+  }
+
+  .seo-headline {
+    font-family: var(--font-display);
+    @apply text-[3rem] font-semibold leading-[0.9] tracking-[-0.08em] text-white md:text-[5.2rem];
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    @apply text-[2.2rem] font-semibold leading-[0.94] tracking-[-0.07em] md:text-[3.6rem];
+  }
+
+  .seo-chip {
+    @apply inline-flex items-center rounded-full border bg-white/5 px-3 py-2 text-[11px] uppercase tracking-[0.16em];
+    border-color: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  .seo-cta-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-medium text-black;
+  }
+
+  .seo-cta-secondary {
+    @apply inline-flex items-center justify-center rounded-full border bg-white/5 px-5 py-3 text-sm text-white;
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .seo-page {
+    @apply relative min-h-screen;
+  }
+
+  .seo-noise {
+    @apply pointer-events-none fixed inset-0 opacity-[0.06];
+    background-image:
+      linear-gradient(transparent 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
+      linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+    background-size: 100% 180px, 180px 100%;
+    mix-blend-mode: screen;
+  }
+
+  .seo-rings {
+    @apply pointer-events-none fixed inset-0 opacity-50;
+    background:
+      radial-gradient(circle at 15% 40%, transparent 0 32%, rgba(255, 255, 255, 0.06) 32.3%, transparent 32.7%),
+      radial-gradient(circle at 82% 22%, transparent 0 22%, rgba(255, 255, 255, 0.05) 22.2%, transparent 22.6%),
+      radial-gradient(circle at 100% 78%, transparent 0 30%, rgba(255, 255, 255, 0.04) 30.2%, transparent 30.6%);
+  }
+
+  .spark {
+    position: relative;
+    color: rgba(255, 255, 255, 0.95);
+    transform: rotate(8deg);
+    filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.18));
+  }
+
+  .spark::before,
+  .spark::after {
+    content: "";
+    position: absolute;
+    inset: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    background: currentColor;
+  }
+
+  .spark::before {
+    width: 100%;
+    height: 18%;
+  }
+
+  .spark::after {
+    width: 18%;
+    height: 100%;
+  }
+
+  .spark-lg {
+    width: 108px;
+    height: 108px;
+  }
+
+  .spark-md {
+    width: 56px;
+    height: 56px;
+  }
+
+  .spark-sm {
+    width: 34px;
+    height: 34px;
+  }
+}

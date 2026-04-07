@@ -1,6 +1,6 @@
 # Portfolio
 
-This is a simple React application built with TypeScript. It serves as a template for creating scalable and maintainable React applications.
+This codebase is a standard Next.js application using the app router, TypeScript, and Tailwind CSS.
 
 ## Getting Started
 
@@ -35,10 +35,10 @@ Make sure you have the following installed:
 
 ### Running the Application
 
-To start the development server, run:
+To start the Next.js development server, run:
 
 ```
-npm start
+npm run dev
 ```
 
 The application will be available at `http://localhost:3000`.
@@ -51,14 +51,24 @@ To create a production build, run:
 npm run build
 ```
 
-This will generate a `build` folder with the optimized application.
+To serve the production build locally:
+
+```
+npm start
+```
+
+### Environment Variables
+
+The contact form uses a Next.js API route and expects these environment variables:
+
+- `COMMUNICATION_SERVICES_CONNECTION_STRING`
+- `SENDER_EMAIL_ADDRESS`
 
 ### Folder Structure
 
-- `src/`: Contains the source code of the application.
-  - `components/`: Contains React components.
-  - `types/`: Contains TypeScript types and interfaces.
-- `public/`: Contains static files like `index.html`.
+- `app/`: Next.js app router pages, layout, and API routes.
+- `src/`: Shared React components, styles, and data.
+- `public/`: Contains static assets served by Next.js.
 - `package.json`: Contains project metadata and dependencies.
 - `tsconfig.json`: TypeScript configuration file.
 - `README.md`: Documentation for the project.

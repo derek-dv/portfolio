@@ -1,112 +1,114 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Trophy, ShoppingBag, Code } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+
+import { heroStats } from "../../exports";
 
 const Hero = () => {
   return (
-    <section id="hero" className="relative min-h-screen pt-20 flex items-center overflow-hidden">
-      {/* Background Blobs */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(251,146,60,0.18),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(15,23,42,0.08),_transparent_28%),linear-gradient(180deg,_rgba(255,255,255,0.95),_rgba(248,250,252,0.98))]" />
-      <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-orange-200 rounded-full blur-3xl opacity-40 animate-pulse" />
-      <div className="absolute bottom-[10%] right-[-5%] w-72 h-72 bg-slate-200 rounded-full blur-3xl opacity-50 animate-pulse" />
+    <section id="hero" className="section-shell pt-8 md:pt-12">
+      <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="relative overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] px-5 py-8 md:px-8 md:py-10 lg:px-10">
+          <div className="absolute inset-0 opacity-60 divider-grid" />
+          <div className="absolute -right-20 top-10 h-48 w-48 rounded-full bg-[rgba(141,247,111,0.16)] blur-3xl" />
+          <div className="absolute bottom-0 left-10 h-40 w-40 rounded-full bg-[rgba(122,216,255,0.14)] blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
-
-        {/* Left Content */}
-        <div className="space-y-6 text-center lg:text-left order-2 lg:order-1">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-xl font-bold text-slate-800 mb-2">Welcome</h2>
-            <h1 className="text-5xl md:text-7xl font-bold text-slate-900 leading-tight">
-              Hi! I Am <br />
-              <span className="text-slate-800">Derek David</span>
+          <div className="relative z-10">
+            <p className="kicker">Frontend systems / product engineering / delivery</p>
+            <h1 className="headline-xl mt-6 max-w-5xl">
+              Modern web products without the bloated agency aesthetic.
             </h1>
-          </motion.div>
+            <p className="mt-6 max-w-2xl text-base leading-8 text-[var(--ink-soft)] md:text-lg">
+              I build Next.js and Node.js products with a bias for sharp interfaces,
+              sane architecture, and momentum that does not collapse once the app
+              gets real users.
+            </p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-slate-500 text-lg max-w-lg mx-auto lg:mx-0"
-          >
-            Fullstack Developer specializing in <span className="text-slate-800 font-semibold">NextJS</span>, <span className="text-slate-800 font-semibold">React</span>, and <span className="text-slate-800 font-semibold">NodeJS</span>. Building scalable, high-performance web applications.
-          </motion.p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#portfolio" className="cta-primary">
+                See selected work
+                <ArrowRight size={16} />
+              </a>
+              <a href="/resume.pdf" target="_blank" rel="noreferrer" className="cta-secondary">
+                Resume
+              </a>
+            </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-xl font-semibold shadow-lg shadow-orange-500/30 hover:bg-orange-600 transition-all hover:scale-105"
-            >
-              Hire Me
-            </a>
-          </motion.div>
-
-
+            <div className="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {heroStats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="rounded-[1.5rem] border border-[var(--line)] bg-[rgba(255,255,255,0.04)] p-4"
+                >
+                  <p className="display text-3xl text-[var(--ink)] md:text-4xl">{stat.value}</p>
+                  <p className="mt-2 text-xs uppercase tracking-[0.14em] text-[var(--ink-soft)]">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Right Image & Floating Elements */}
-        <div className="relative order-1 lg:order-2 flex justify-center">
-
-          {/* Main Image Container */}
-          <div className="relative z-10 w-80 h-80 md:w-[28rem] md:h-[28rem]">
-            <div className="absolute inset-0 bg-primary/10 rounded-full blur-2xl transform translate-y-4 scale-90" />
-            <img
-              src="/images/hero_new.jpg"
-              alt="Derek"
-              className="relative w-full h-full object-cover rounded-b-full drop-shadow-2xl"
-            />
+        <div className="grid gap-6">
+          <div className="surface-light rounded-[2rem] p-6 md:p-7">
+            <p className="kicker">What I optimize for</p>
+            <ul className="mt-6 space-y-4 text-sm leading-7 text-[var(--ink-dark)] md:text-base">
+              <li>Interfaces that stay quick under real usage, not just screenshots.</li>
+              <li>Backend choices that reduce future cleanup instead of postponing it.</li>
+              <li>Product delivery that feels intentional rather than over-designed.</li>
+            </ul>
           </div>
 
-          {/* Floating Cards */}
-          {/* Card 1: Best Design Awards */}
-          <motion.div
-            animate={{ y: [-10, 10, -10] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-10 right-0 md:right-10 glass p-3 rounded-2xl flex items-center gap-3 z-20"
-          >
-            <div className="bg-orange-100 p-2 rounded-full">
-              <Trophy className="text-primary w-6 h-6" />
+          <div className="surface rounded-[2rem] p-6 md:p-7">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="kicker">Current stack</p>
+                <h2 className="display mt-4 text-3xl md:text-4xl">Next.js, React, Node.js</h2>
+              </div>
+              <div className="flex gap-2">
+                <a
+                  href="https://github.com/derek-dv"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full border border-[var(--line-strong)] p-3 text-[var(--ink)] hover:border-[var(--accent)]"
+                  aria-label="GitHub"
+                >
+                  <Github size={18} />
+                </a>
+                <a
+                  href="https://linkedin.com/in/derek-dv"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full border border-[var(--line-strong)] p-3 text-[var(--ink)] hover:border-[var(--accent)]"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin size={18} />
+                </a>
+                <a
+                  href="mailto:derek@derekcodes.online"
+                  className="rounded-full border border-[var(--line-strong)] p-3 text-[var(--ink)] hover:border-[var(--accent)]"
+                  aria-label="Email"
+                >
+                  <Mail size={18} />
+                </a>
+              </div>
             </div>
-            <div>
-              <p className="font-bold text-slate-800 text-sm">Hackathon Winner</p>
-              <p className="text-xs text-slate-500">2025</p>
-            </div>
-          </motion.div>
 
-          {/* Card 2: UI/Ux */}
-          <motion.div
-            animate={{ y: [10, -10, 10] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute bottom-10 left-0 glass p-3 rounded-2xl flex items-center gap-3 z-20"
-          >
-            <div className="bg-purple-100 p-2 rounded-full">
-              <Code className="text-purple-600 w-6 h-6" />
+            <div className="mt-8 flex flex-wrap gap-2">
+              {["TypeScript", "PostgreSQL", "Docker", "Azure", "AI integrations"].map(
+                (item) => (
+                  <span key={item} className="chip">
+                    {item}
+                  </span>
+                ),
+              )}
             </div>
-            <div>
-              <p className="font-bold text-slate-800 text-sm">Full Stack</p>
-              <p className="text-xs text-slate-500">Web & Mobile</p>
-            </div>
-          </motion.div>
 
-          {/* Card 3: Shopify */}
-          <motion.div
-            animate={{ x: [-5, 5, -5] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute top-1/2 right-[-20px] glass p-3 rounded-xl z-20"
-          >
-            <div className="bg-green-100 p-2 rounded-full">
-              <ShoppingBag className="text-green-600 w-6 h-6" />
-            </div>
-          </motion.div>
-
+            <p className="mt-8 text-sm leading-7 text-[var(--ink-soft)]">
+              Best fit: serious product teams, platform rebuilds, internal tools,
+              and startups that need both speed and technical discipline.
+            </p>
+          </div>
         </div>
-
       </div>
     </section>
   );

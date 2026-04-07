@@ -1,73 +1,84 @@
-import { Code, Layout, Server, Database, Globe, Smartphone } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
-const services = [
-    {
-        icon: Code,
-        title: "Fullstack Development",
-        description: "Building robust, scalable applications using NextJS, React, and NodeJS. Ensuring seamless integration between frontend and backend.",
-        color: "bg-orange-100 text-orange-600",
-    },
-    {
-        icon: Layout,
-        title: "Frontend Engineering",
-        description: "Crafting responsive, high-performance user interfaces with React, TailwindCSS, and modern animation libraries.",
-        color: "bg-purple-100 text-purple-600",
-    },
-    {
-        icon: Server,
-        title: "Backend Systems",
-        description: "Designing efficient APIs, database architectures, and server-side logic using NodeJS and Express.",
-        color: "bg-blue-100 text-blue-600",
-    },
-];
+import { engineeringPrinciples, focusAreas, proofPoints } from "../../exports";
 
 const Services = () => {
-    return (
-        <section id="services" className="py-20 bg-slate-50/50">
-            <div className="max-w-7xl mx-auto px-6">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
+  return (
+    <section id="services" className="section-shell py-20 md:py-24">
+      <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+        <div>
+          <p className="kicker">Approach</p>
+          <h2 className="section-title mt-4 max-w-lg">
+            Clear product thinking before framework theater.
+          </h2>
+          <p className="mt-5 max-w-xl text-sm leading-7 text-[var(--ink-soft)] md:text-base">
+            The goal is not to impress a room with tooling. It is to build a
+            product that feels fast, remains maintainable, and does not force the
+            team into cleanup mode three months later.
+          </p>
 
-                    {/* Services Cards */}
-                    <div className="space-y-6">
-                        {services.map((service, index) => (
-                            <div
-                                key={index}
-                                className="group bg-white p-6 rounded-2xl shadow-soft hover:shadow-lg transition-all duration-300 flex items-start gap-6 cursor-pointer hover:-translate-y-1 border border-slate-100"
-                            >
-                                <div className={`p-4 rounded-2xl ${service.color} group-hover:scale-110 transition-transform`}>
-                                    <service.icon size={28} />
-                                </div>
-                                <div>
-                                    <h3 className="text-xl font-bold text-slate-800 mb-2 group-hover:text-primary transition-colors">{service.title}</h3>
-                                    <p className="text-slate-500 text-sm leading-relaxed">{service.description}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+          <div className="mt-8 space-y-3">
+            {proofPoints.map((point) => (
+              <div
+                key={point.label}
+                className="flex flex-col gap-2 border-l-2 border-[var(--accent)]/50 pl-4"
+              >
+                <p className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--accent)]">
+                  {point.label}
+                </p>
+                <p className="text-sm leading-7 text-[var(--ink)] md:text-base">{point.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
 
-                    {/* Right Content */}
-                    <div className="lg:pl-10">
-                        <h2 className="text-4xl font-bold text-slate-900 mb-6">
-                            My Awesome <br />
-                            <span className="text-primary">Services</span>
-                        </h2>
-                        <p className="text-slate-500 text-lg mb-8 leading-relaxed">
-                            I help startups and businesses build modern web applications. From clean frontends to powerful backends.
-                            <br /><br />
-                            Whether you need a high-converting landing page or a complex SaaS platform, I deliver clean, maintainable code using the latest tech stack: <span className="font-bold text-slate-700">NextJS, React, and NodeJS</span>.
-                        </p>
-                        <a
-                            href="#contact"
-                            className="bg-primary text-white px-8 py-3 rounded-xl font-semibold shadow-lg shadow-orange-500/30 hover:bg-orange-600 transition-colors"
-                        >
-                            Hire Me
-                        </a>
-                    </div>
+        <div className="grid gap-5">
+          <div className="grid gap-4 md:grid-cols-3">
+            {focusAreas.map((area, index) => (
+              <article
+                key={area.title}
+                className={`rounded-[1.75rem] border p-5 ${
+                  index === 1 ? "surface-light translate-y-0 md:translate-y-8" : "surface"
+                }`}
+              >
+                <p className="kicker">{area.title}</p>
+                <p className="mt-5 text-sm leading-7 md:text-base">
+                  {area.description}
+                </p>
+              </article>
+            ))}
+          </div>
 
-                </div>
+          <div className="surface rounded-[1.75rem] p-6 md:p-7">
+            <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+              <div>
+                <p className="kicker">Operating principles</p>
+                <p className="mt-4 max-w-xl text-sm leading-7 text-[var(--ink-soft)] md:text-base">
+                  I prefer visible constraints, practical decisions, and software
+                  that stays understandable after the launch energy fades.
+                </p>
+              </div>
+              <a href="#contact" className="cta-secondary w-fit">
+                Work with me
+                <ArrowUpRight size={16} />
+              </a>
             </div>
-        </section>
-    );
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {engineeringPrinciples.map((principle) => (
+                <div
+                  key={principle}
+                  className="rounded-[1rem] border border-[var(--line)] px-4 py-3 text-sm text-[var(--ink)]"
+                >
+                  {principle}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Services;

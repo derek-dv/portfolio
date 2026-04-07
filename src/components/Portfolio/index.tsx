@@ -1,85 +1,142 @@
-import { motion } from "framer-motion";
-import { ArrowRight, ExternalLink, Github } from "lucide-react";
-import { useState } from "react";
-import { portfolioProjects } from "../../exports";
+import { ArrowUpRight, Github } from "lucide-react";
 
-const Portfolio: React.FC = () => {
-  const [activeFilter, setActiveFilter] = useState("All");
+import { caseStudies, featuredProjects } from "../../exports";
 
-  const categories = ["All", "UI/UX", "Web Design", "App Design", "Graphic"];
-
+const Portfolio = () => {
   return (
-    <section id="portfolio" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-
-        {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12">
-          <div>
-            <h2 className="text-4xl font-bold text-slate-900 mb-2">Recent Project</h2>
-            <p className="text-slate-500">Check out some of my recent work.</p>
-          </div>
-          <div className="mt-6 md:mt-0">
-            <button className="bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/30">
-              Details
-            </button>
-          </div>
+    <section id="portfolio" className="section-shell py-20 md:py-24">
+      <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="kicker">Selected work</p>
+          <h2 className="section-title mt-4 max-w-3xl">
+            Projects arranged like products, not placeholder tiles.
+          </h2>
         </div>
+        <p className="max-w-md text-sm leading-7 text-[var(--ink-soft)] md:text-base">
+          The point here is signal. Enough detail to show how I think, without
+          drowning the section in copy.
+        </p>
+      </div>
 
-        {/* Filters (Optional, keeping it simple for now as per image) */}
-        {/* <div className="flex gap-6 mb-10 overflow-x-auto pb-4">
-            {categories.map(cat => (
-               <button 
-                key={cat} 
-                className={`whitespace-nowrap font-medium ${activeFilter === cat ? 'text-primary' : 'text-slate-400 hover:text-slate-600'}`}
-                onClick={() => setActiveFilter(cat)}
-               >
-                 {cat}
-               </button>
-            ))}
-         </div> */}
-
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {portfolioProjects.slice(0, 3).map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group relative rounded-2xl overflow-hidden cursor-pointer"
+      <div className="mt-8 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="space-y-5">
+          {featuredProjects.map((project, index) => (
+            <article
+              key={project.title}
+              className={`overflow-hidden rounded-[2rem] ${
+                index === 1 ? "surface-light" : "surface"
+              }`}
             >
-              <div className="aspect-[4/3] w-full overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-
-              {/* Overlay Content */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent flex flex-col justify-end p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                <h3 className="text-2xl font-bold text-white mb-1">{project.title}</h3>
-                <p className="text-slate-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
-                  {project.description.substring(0, 60)}...
-                </p>
-                <div className="mt-4 flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                  {project.link && (
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-colors">
-                      <ExternalLink size={18} />
-                    </a>
-                  )}
-                  {project.github && (
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/40 transition-colors">
-                      <Github size={18} />
-                    </a>
-                  )}
+              <div className={`bg-gradient-to-r ${project.accent} px-5 py-5 md:px-6`}>
+                <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+                  <div>
+                    <p className="mono text-[10px] uppercase tracking-[0.24em] text-[#18242f]/70">
+                      {project.status}
+                    </p>
+                    <h3 className="display mt-3 text-3xl leading-[0.95] text-[#0e1821] md:text-4xl">
+                      {project.title}
+                    </h3>
+                    <p className="mt-3 max-w-xl text-sm leading-7 text-[#1a2b34] md:text-base">
+                      {project.summary}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {project.stack.map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full border border-[rgba(14,24,33,0.12)] bg-white/50 px-3 py-1.5 text-[11px] uppercase tracking-[0.12em] text-[#0e1821]"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </motion.div>
+
+              <div className="grid gap-5 px-5 py-5 md:grid-cols-[0.36fr_0.64fr] md:px-6">
+                <div>
+                  <p className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--accent)]">
+                    Role
+                  </p>
+                  <p className="mt-2 text-sm leading-7 md:text-base">{project.role}</p>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.highlights.map((item) => (
+                      <span key={item} className="chip">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid gap-4">
+                  <div>
+                    <p className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--accent)]">
+                      Outcome
+                    </p>
+                    <p className="mt-2 text-sm leading-7 md:text-base">{project.outcome}</p>
+                  </div>
+                  <div>
+                    <p className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--accent)]">
+                      Challenge
+                    </p>
+                    <p className="mt-2 text-sm leading-7 md:text-base">{project.challenge}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-3 pt-1">
+                    {project.link ? (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="cta-secondary"
+                      >
+                        Live project
+                        <ArrowUpRight size={16} />
+                      </a>
+                    ) : (
+                      <span className="chip">Private build or concept work</span>
+                    )}
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="cta-secondary"
+                      >
+                        Source
+                        <Github size={16} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </article>
           ))}
         </div>
 
+        <div className="space-y-5">
+          {caseStudies.map((study, index) => (
+            <article
+              key={study.title}
+              className={`rounded-[1.75rem] p-5 md:p-6 ${
+                index === 0 ? "surface" : "surface-light"
+              }`}
+            >
+              <p className="kicker">Case study / {study.project}</p>
+              <h3 className="mt-3 text-2xl font-semibold leading-tight md:text-3xl">
+                {study.title}
+              </h3>
+              <p className="mt-4 text-sm leading-7 md:text-base">{study.description}</p>
+              <ul className="mt-5 space-y-3 text-sm leading-7 md:text-base">
+                {study.bullets.map((bullet) => (
+                  <li key={bullet} className="border-b border-current/10 pb-3 last:border-b-0 last:pb-0">
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

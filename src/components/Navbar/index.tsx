@@ -1,87 +1,90 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+
 import Logo from "../Logo";
 
-const Navbar = ({ theme, setTheme }: { theme: any; setTheme: any }) => {
+const navLinks = [
+  { name: "Work", href: "#portfolio" },
+  { name: "Approach", href: "#services" },
+  { name: "Experience", href: "#experience" },
+  { name: "Contact", href: "#contact" },
+];
+
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Home", href: "#hero" },
-    { name: "About Us", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Projects", href: "#portfolio" },
-  ];
-
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? "glass py-2" : "bg-transparent py-4"
-        }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <Logo />
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-slate-600 hover:text-primary font-medium transition-colors"
-            >
-              {link.name}
-            </a>
-          ))}
-          <a
-            href="#contact"
-            className="bg-primary text-white px-6 py-2 rounded-full font-medium hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/30"
-          >
-            Contact Us
+    <header className="sticky top-0 z-50">
+      <nav className="section-shell pt-3 md:pt-4">
+        <div
+          className={`flex items-center justify-between rounded-[1.35rem] px-4 py-3 md:px-5 ${
+            scrolled ? "surface" : "bg-transparent"
+          }`}
+        >
+          <a href="#hero" className="flex items-center gap-3">
+            <Logo className="h-9 w-9" />
+            <div>
+              <p className="mono text-[11px] uppercase tracking-[0.24em] text-[var(--accent)]">
+                Derek David
+              </p>
+              <p className="text-sm text-[var(--ink-soft)]">Full-stack engineer</p>
+            </div>
           </a>
-        </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
+          <div className="hidden items-center gap-7 md:flex">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-sm text-[var(--ink-soft)] hover:text-[var(--ink)]"
+              >
+                {link.name}
+              </a>
+            ))}
+            <a href="#contact" className="cta-primary">
+              Let&apos;s talk
+            </a>
+          </div>
+
           <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-slate-800 focus:outline-none"
+            type="button"
+            onClick={() => setIsOpen((open) => !open)}
+            className="rounded-full border border-[var(--line-strong)] p-2 text-[var(--ink)] md:hidden"
+            aria-label="Toggle navigation"
           >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+            {isOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
-      </div>
 
-      {/* Mobile Menu Dropdown */}
-      {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-lg border-b border-gray-100 shadow-xl p-6 flex flex-col space-y-4">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="text-slate-700 hover:text-primary font-medium text-lg"
-            >
-              {link.name}
-            </a>
-          ))}
-          <a
-            href="#contact"
-            onClick={() => setIsOpen(false)}
-            className="bg-primary text-white px-6 py-3 rounded-full font-medium text-center shadow-lg"
-          >
-            Contact Us
-          </a>
-        </div>
-      )}
-    </nav>
+        {isOpen && (
+          <div className="surface mt-3 rounded-[1.35rem] p-4 md:hidden">
+            <div className="flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsOpen(false)}
+                  className="text-sm text-[var(--ink-soft)]"
+                >
+                  {link.name}
+                </a>
+              ))}
+              <a href="#contact" onClick={() => setIsOpen(false)} className="cta-primary w-fit">
+                Let&apos;s talk
+              </a>
+            </div>
+          </div>
+        )}
+      </nav>
+    </header>
   );
 };
 

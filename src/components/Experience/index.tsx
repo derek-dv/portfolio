@@ -1,62 +1,51 @@
-import { motion } from "framer-motion";
-import { Briefcase, Calendar } from "lucide-react";
 import { experiences } from "../../exports";
 
-const Experience: React.FC = () => {
-  // Use all experiences
-  const recentWork = experiences;
-
+const Experience = () => {
   return (
-    <section id="experience" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">
-            Experience
-          </h2>
-          <p className="text-lg text-slate-500">
-            My professional journey.
+    <section id="experience" className="section-shell py-20 md:py-24">
+      <div className="grid gap-8 lg:grid-cols-[0.38fr_0.62fr]">
+        <div>
+          <p className="kicker">Experience</p>
+          <h2 className="section-title mt-4">A record of shipped work, not just experiments.</h2>
+          <p className="mt-5 max-w-sm text-sm leading-7 text-[var(--ink-soft)] md:text-base">
+            I have worked across startups, client delivery, and modernization
+            efforts. The pattern is consistent: clarify the system, ship carefully,
+            and keep future work easier than it would have been otherwise.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="relative border-l-2 border-slate-200 ml-4 md:ml-0 md:pl-0 md:grid md:grid-cols-1 md:gap-12 md:max-w-3xl md:mx-auto">
-          {recentWork.map((job, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="mb-10 md:mb-0 relative pl-8 md:pl-0"
+        <div className="space-y-5">
+          {experiences.map((job, index) => (
+            <article
+              key={`${job.company}-${job.period}`}
+              className={`rounded-[1.75rem] p-5 md:p-6 ${
+                index % 2 === 0 ? "surface" : "surface-light"
+              }`}
             >
-              {/* Timeline Dot */}
-              <div className="absolute -left-[9px] md:left-[-42px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-white shadow-sm z-10" />
-
-              {/* Content Card */}
-              <div className="bg-slate-50 p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-                <div className="flex flex-col md:flex-row justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-800">{job.title}</h3>
-                    <p className="text-primary font-medium">{job.company}</p>
-                  </div>
-                  <div className="flex items-center gap-2 text-slate-400 text-sm mt-2 md:mt-0">
-                    <Calendar size={16} />
-                    <span>{job.period}</span>
-                  </div>
+              <div className="grid gap-5 md:grid-cols-[0.32fr_0.68fr]">
+                <div>
+                  <p className="mono text-[11px] uppercase tracking-[0.24em] text-[var(--accent)]">
+                    {job.period}
+                  </p>
+                  <h3 className="mt-3 text-xl font-semibold md:text-2xl">{job.title}</h3>
+                  <p
+                    className={`mt-1 text-sm ${
+                      index % 2 === 0 ? "text-[var(--ink-soft)]" : "text-[#5f6b76]"
+                    }`}
+                  >
+                    {job.company} / {job.location}
+                  </p>
                 </div>
-                <ul className="list-disc list-inside text-slate-600 text-sm space-y-2 mt-4">
-                  {job.achievements.map((achievement, i) => (
-                    <li key={i} className="leading-relaxed">
+
+                <ul className="space-y-3 text-sm leading-7 md:text-base">
+                  {job.achievements.map((achievement) => (
+                    <li key={achievement} className="border-b border-current/10 pb-3 last:border-b-0 last:pb-0">
                       {achievement}
                     </li>
                   ))}
                 </ul>
               </div>
-            </motion.div>
+            </article>
           ))}
         </div>
       </div>

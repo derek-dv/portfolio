@@ -1,10 +1,10 @@
-import { motion } from "framer-motion";
-import { Mail, Phone, Send, Download } from "lucide-react";
-import { useRef, useState, FormEvent } from "react";
+import { FormEvent, useRef, useState } from "react";
+import { ArrowUpRight, Mail, Phone, Send } from "lucide-react";
 import toast from "react-hot-toast";
-import axios from "axios";
 
-const Contact: React.FC = () => {
+import { contactFacts } from "../exports";
+
+const Contact = () => {
   const form = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -18,105 +18,162 @@ const Contact: React.FC = () => {
     const data = {
       name: formData.get("user_name"),
       email: formData.get("user_email"),
-      subject: "Portfolio Contact", // Default subject or add field
+      subject: "Portfolio Contact",
       message: formData.get("message"),
     };
 
     try {
-      await axios.post('http://localhost:3001/api/contact', data);
-      setLoading(false);
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
       setSubmitted(true);
-      toast.success("Message sent successfully!");
-      if (form.current) form.current.reset();
+      toast.success("Message sent.");
+      form.current.reset();
     } catch (error) {
       console.error(error);
+      toast.error("Message failed. Please try again.");
+    } finally {
       setLoading(false);
-      toast.error("Failed to send message. Please try again.");
     }
   };
 
   return (
-    <section id="contact" className="py-20 bg-slate-50 relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+    <section id="contact" className="section-shell py-20 md:py-24">
+      <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="surface-light rounded-[2rem] p-6 md:p-8">
+          <p className="kicker">Contact</p>
+          <h2 className="section-title mt-4 max-w-lg text-[var(--ink-dark)]">
+            Bring the serious brief. I&apos;ll bring the engineering.
+          </h2>
+          <p className="mt-5 max-w-lg text-sm leading-7 text-[#5f6b76] md:text-base">
+            I am open to senior product engineering roles, contract work, and
+            consulting where quality and speed are both expected.
+          </p>
 
-          {/* Left Content */}
-          <div className="space-y-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-4xl font-bold text-slate-900 mb-4">
-                Ready To Get <br /><span className="text-primary">Started?</span>
-              </h2>
-              <p className="text-slate-500 text-lg leading-relaxed">
-                Got a project in mind? Let's discuss how we can help you build your digital presence.
-              </p>
-            </motion.div>
-
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="bg-white p-3 rounded-full shadow-sm"><Mail className="text-primary" /></div>
-                <div>
-                  <h4 className="font-bold text-slate-800">Email</h4>
-                  <p className="text-slate-500 text-sm">derek@derekcodes.online</p>
-                </div>
+          <div className="mt-8 space-y-3">
+            {contactFacts.map((fact) => (
+              <div
+                key={fact}
+                className="rounded-[1.25rem] border border-[rgba(20,32,43,0.08)] px-4 py-3 text-sm leading-7 text-[var(--ink-dark)]"
+              >
+                {fact}
               </div>
-              <div className="flex items-center gap-4">
-                <div className="bg-white p-3 rounded-full shadow-sm"><Phone className="text-primary" /></div>
-                <div>
-                  <h4 className="font-bold text-slate-800">Phone</h4>
-                  <p className="text-slate-500 text-sm">+234 708 602 0081</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4">
-              <a href="/resume.pdf" download className="flex items-center justify-center w-full sm:w-auto gap-2 px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/20">
-                <Download size={18} />
-                <span>Download Resume</span>
-              </a>
-            </div>
+            ))}
           </div>
 
-          {/* Right Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="bg-white p-8 rounded-3xl shadow-soft border border-slate-100"
-          >
-            {!submitted ? (
-              <form ref={form} onSubmit={sendEmail} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Name</label>
-                  <input type="text" name="user_name" required className="w-full px-4 py-3 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-primary/50 outline-none transition-all" placeholder="Your Name" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
-                  <input type="email" name="user_email" required className="w-full px-4 py-3 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-primary/50 outline-none transition-all" placeholder="email@example.com" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Message</label>
-                  <textarea name="message" rows={4} required className="w-full px-4 py-3 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-primary/50 outline-none transition-all" placeholder="Tell me about your project..."></textarea>
-                </div>
-                <button type="submit" disabled={loading} className="w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-orange-600 transition-all flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20">
-                  {loading ? "Sending..." : <><span>Send Message</span><Send size={18} /></>}
-                </button>
-              </form>
-            ) : (
-              <div className="text-center py-12">
-                <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Send size={32} />
-                </div>
-                <h3 className="text-2xl font-bold text-slate-800 mb-2">Message Sent!</h3>
-                <p className="text-slate-500">I'll get back to you as soon as possible.</p>
-                <button onClick={() => setSubmitted(false)} className="mt-6 text-primary font-medium hover:underline">Send another message</button>
-              </div>
-            )}
-          </motion.div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <a
+              href="mailto:derek@derekcodes.online"
+              className="rounded-[1.4rem] border border-[rgba(20,32,43,0.08)] p-4"
+            >
+              <Mail size={18} />
+              <p className="mt-3 mono text-[11px] uppercase tracking-[0.2em] text-[#5f6b76]">
+                Email
+              </p>
+              <p className="mt-2 text-sm text-[var(--ink-dark)]">derek@derekcodes.online</p>
+            </a>
+            <a
+              href="tel:+2347086020081"
+              className="rounded-[1.4rem] border border-[rgba(20,32,43,0.08)] p-4"
+            >
+              <Phone size={18} />
+              <p className="mt-3 mono text-[11px] uppercase tracking-[0.2em] text-[#5f6b76]">
+                Phone
+              </p>
+              <p className="mt-2 text-sm text-[var(--ink-dark)]">+234 708 602 0081</p>
+            </a>
+          </div>
 
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href="/resume.pdf" target="_blank" rel="noreferrer" className="cta-primary">
+              Resume
+              <ArrowUpRight size={16} />
+            </a>
+            <a
+              href="https://linkedin.com/in/derek-dv"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-[rgba(20,32,43,0.12)] px-5 py-3 text-sm text-[var(--ink-dark)]"
+            >
+              LinkedIn
+              <ArrowUpRight size={16} />
+            </a>
+          </div>
+        </div>
+
+        <div className="surface rounded-[2rem] p-6 md:p-8">
+          {!submitted ? (
+            <form ref={form} onSubmit={sendEmail} className="space-y-6">
+              <div className="grid gap-6 md:grid-cols-2">
+                <div>
+                  <label className="mono text-[11px] uppercase tracking-[0.18em] text-[var(--accent)]">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    name="user_name"
+                    required
+                    placeholder="Your name"
+                    className="mt-2 w-full rounded-[1rem] border border-[var(--line)] bg-[rgba(255,255,255,0.04)] px-4 py-3.5 text-[var(--ink)] outline-none focus:border-[var(--accent)]"
+                  />
+                </div>
+                <div>
+                  <label className="mono text-[11px] uppercase tracking-[0.18em] text-[var(--accent)]">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="user_email"
+                    required
+                    placeholder="you@example.com"
+                    className="mt-2 w-full rounded-[1rem] border border-[var(--line)] bg-[rgba(255,255,255,0.04)] px-4 py-3.5 text-[var(--ink)] outline-none focus:border-[var(--accent)]"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="mono text-[11px] uppercase tracking-[0.18em] text-[var(--accent)]">
+                  What are you building?
+                </label>
+                <textarea
+                  name="message"
+                  rows={8}
+                  required
+                  placeholder="Scope, timeline, team context, or the part that is currently stuck."
+                  className="mt-2 w-full rounded-[1rem] border border-[var(--line)] bg-[rgba(255,255,255,0.04)] px-4 py-3.5 text-[var(--ink)] outline-none focus:border-[var(--accent)]"
+                />
+              </div>
+
+              <button type="submit" disabled={loading} className="cta-primary disabled:opacity-70">
+                {loading ? "Sending..." : "Send message"}
+                <Send size={16} />
+              </button>
+            </form>
+          ) : (
+            <div className="flex min-h-[22rem] flex-col justify-center">
+              <p className="kicker">Message received</p>
+              <h3 className="section-title mt-4 max-w-lg">Thanks. I&apos;ll reply shortly.</h3>
+              <p className="mt-4 max-w-md text-sm leading-7 text-[var(--ink-soft)] md:text-base">
+                If everything landed correctly, you should hear back within a day.
+              </p>
+              <button
+                type="button"
+                onClick={() => setSubmitted(false)}
+                className="cta-secondary mt-8 w-fit"
+              >
+                Send another message
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>
